@@ -1,7 +1,6 @@
 import json
 import datetime
 
-
 file_name = "data.json"
 
 def add(description):
@@ -26,7 +25,7 @@ def add(description):
     data.append(new_data)
     with open(file_name, "w", encoding="utf-8") as file:
         json.dump(data, file, indent=4, ensure_ascii=False)
-    print(f"New task added. ID: {new_data['id']}")
+    print(f"New task added with ID: {new_data['id']}")
 
 def list(status):
     try:
@@ -87,8 +86,8 @@ def update(id):
 
         for item in data:
             if item["id"] == int(id):
-                print("Old task description is: \n" + item["description"])
-                desc = input("\n\nPlease enter new task description: ")
+                print("Old description is: \n" + item["description"])
+                desc = input("\nPlease enter a new description: ")
                 item["description"] = desc
                 item["updatedAt"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 updated = True
@@ -127,15 +126,16 @@ def remove(id):
 
 i = ""
 while i != "0":
-    deger=input("ADD(1) / LIST(2) / UPDATE (3) / DELETE(4) / EXIT(0) \nPlease chose what to do: ")
+    deger=input("\n\nADD(1) / LIST(2) / UPDATE (3) / DELETE(4) / EXIT(0) \nPlease chose what to do: ")
     if deger == "1":
-        desc = input("Please enter the task: ")
+        desc = input("Please enter a description for the task: ")
         add(desc)
     elif deger == "2":
-        filter = input("ToDo(1) / In Progress(2)/ Done(3)/ All(Enter)\nPlease chose a filter option: ")
+        filter = input("TODO(1) / IN PROGRESS(2) / DONE(3) / ALL(Enter)\nPlease chose a filter option: ")
         list(filter)
     elif deger == "3":
         updt = input("STATUS(1) / DESCRIPTION(2)\nPlease chose what to update: ")
+        list("")
         if updt == "1":
             id = int(input("\nPlease enter the task ID: "))
             updateTask(id)
@@ -143,6 +143,7 @@ while i != "0":
             id = int(input("\nPlease enter the task ID: "))
             update(id)
     elif deger == "4":
+        list("")
         id = int(input("Please enter the task ID: "))
         remove(id)
     elif deger == "0":
