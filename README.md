@@ -3,4 +3,5 @@
 <ol>
   <li><a href="https://roadmap.sh/projects/task-tracker">Task Tracker</a></li>
   <li><a href="https://roadmap.sh/projects/github-user-activity">GitHub User Activity</a></li>
+  <li><a href="https://roadmap.sh/projects/expense-tracker">Expense Tracker</a></li>
 </ol>
