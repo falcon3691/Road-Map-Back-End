@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana Sayfa</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* CSS ile alt alta düzgün görünmesini sağla */
+        .article-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .article-item h3 {
+            margin: 0;
+        }
+        .article-item p {
+            margin: 5px 0 0;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Hoş Geldiniz!</h1>
+        <p>Blog yazılarımızı okuyabilir veya admin panelinden yeni yazılar ekleyebilirsiniz.</p>
+        
+        <h2>Son Blog Yazıları</h2>
+        <div id="article-list"></div> <!-- Burada listelenecek -->
+    </div>
+
+    <script src="../script/nav.js"></script>
+    <script src="../script/index.js"></script>
+</body>
+</html>

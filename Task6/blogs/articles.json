@@ -1,0 +1,34 @@
+{
+  "articles": [
+    {
+      "title": "First Blog Post",
+      "createdAt": "2025-03-01",
+      "content": "This is the first blog post content.",
+      "id": "6c22"
+    },
+    {
+      "title": "Second Blog Post",
+      "createdAt": "2025-03-02",
+      "content": "This is the second blog post content.",
+      "id": "2e74"
+    },
+    {
+      "title": "Third Blog Post",
+      "createdAt": "2025-03-03",
+      "content": "This is the third blog post content.",
+      "id": "0e8f"
+    },
+    {
+      "id": "d007",
+      "title": "asd",
+      "createdAt": "2025-03-13",
+      "content": "asd"
+    },
+    {
+      "id": "57f7",
+      "title": "asd",
+      "createdAt": "2025-03-02",
+      "content": "asd"
+    }
+  ]
+}
