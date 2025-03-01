@@ -1,78 +1,32 @@
-document.addEventListener("DOMContentLoaded", async function () {
-    const blogList = document.getElementById("admin-blog-list");
+document.addEventListener("DOMContentLoaded", function () {
+    const articlesList = document.getElementById("articles-list");
+    const API_URL = "http://localhost:3000/articles";
 
-    async function loadArticles() {
-        try {
-            const response = await fetch("../blogs/articles.json");
-            const articles = await response.json();
-
-            blogList.innerHTML = "";
-            articles.forEach((article, index) => {
-                const listItem = document.createElement("li");
-                listItem.textContent = article.title;
-                listItem.addEventListener("click", () => {
-                    document.getElementById("article-id").value = index;
-                    document.getElementById("title").value = article.title;
-                    document.getElementById("content").value = article.content;
+    function loadArticles() {
+        fetch(API_URL)
+            .then(response => response.json())
+            .then(data => {
+                articlesList.innerHTML = "";
+                data.forEach(article => {
+                    const listItem = document.createElement("li");
+                    listItem.innerHTML = `
+                        <strong>${article.title}</strong> - ${article.createdAt}
+                        <button onclick="window.location.href='edit.html?id=${article.id}'">Düzenle</button>
+                        <button onclick="deleteArticle('${article.id}')">Sil</button>
+                    `;
+                    articlesList.appendChild(listItem);
                 });
-                blogList.appendChild(listItem);
-            });
-        } catch (error) {
-            console.error("Error loading articles:", error);
-        }
+            })
+            .catch(error => console.error("Yazılar yüklenirken hata oluştu:", error));
     }
 
-    async function saveArticles(updatedArticles) {
-        try {
-            await fetch("../blogs/articles.json", {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(updatedArticles)
-            });
-            loadArticles();
-        } catch (error) {
-            console.error("Error saving articles:", error);
+    window.deleteArticle = function (id) {
+        if (confirm("Bu yazıyı silmek istediğinizden emin misiniz?")) {
+            fetch(`${API_URL}/${id}`, { method: "DELETE" })
+                .then(() => loadArticles())
+                .catch(error => console.error("Yazı silinirken hata:", error));
         }
-    }
-
-    document.getElementById("add-btn").addEventListener("click", async function () {
-        const newArticle = {
-            title: document.getElementById("title").value,
-            content: document.getElementById("content").value,
-            createdAt: new Date().toISOString()
-        };
-
-        const response = await fetch("../blogs/articles.json");
-        const articles = await response.json();
-        articles.push(newArticle);
-        saveArticles(articles);
-    });
-
-    document.getElementById("update-btn").addEventListener("click", async function () {
-        const id = document.getElementById("article-id").value;
-        if (id === "") return;
-
-        const response = await fetch("../blogs/articles.json");
-        const articles = await response.json();
-        articles[id] = {
-            title: document.getElementById("title").value,
-            content: document.getElementById("content").value,
-            createdAt: articles[id].createdAt
-        };
-        saveArticles(articles);
-    });
-
-    document.getElementById("delete-btn").addEventListener("click", async function () {
-        const id = document.getElementById("article-id").value;
-        if (id === "") return;
-
-        const response = await fetch("../blogs/articles.json");
-        const articles = await response.json();
-        articles.splice(id, 1);
-        saveArticles(articles);
-    });
+    };
 
     loadArticles();
 });

@@ -1,36 +1,49 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const API_URL = "http://localhost:3000/articles";
     const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("id");
+    const articleId = urlParams.get("id");
 
-    if (!id) {
-        document.body.innerHTML = "<h1>Hata: Yazı bulunamadı</h1>";
-        return;
+    const titleInput = document.getElementById("title");
+    const dateInput = document.getElementById("createdAt");
+    const contentInput = document.getElementById("content");
+    const articleIdInput = document.getElementById("article-id");
+    const blogForm = document.getElementById("blog-form");
+    const pageTitle = document.getElementById("page-title");
+
+    if (articleId) {
+        // Sayfa "Düzenleme" için açıldıysa
+        pageTitle.textContent = "Yazıyı Düzenle";
+        fetch(`${API_URL}/${articleId}`)
+            .then(response => response.json())
+            .then(article => {
+                titleInput.value = article.title;
+                dateInput.value = article.createdAt;
+                contentInput.value = article.content;
+                articleIdInput.value = article.id;
+            })
+            .catch(error => console.error("Yazı yüklenirken hata:", error));
     }
 
-    fetch(`http://localhost:3000/articles/${id}`)
-        .then(response => response.json())
-        .then(article => {
-            document.getElementById("title").value = article.title;
-            document.getElementById("createdAt").value = article.createdAt;
-            document.getElementById("content").value = article.content;
-        })
-        .catch(error => console.error("Error fetching article:", error));
-
-    document.getElementById("edit-form").addEventListener("submit", function (event) {
+    blogForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const updatedArticle = {
-            title: document.getElementById("title").value,
-            createdAt: document.getElementById("createdAt").value,
-            content: document.getElementById("content").value
+        const newArticle = {
+            title: titleInput.value,
+            createdAt: dateInput.value,
+            content: contentInput.value
         };
 
-        fetch(`http://localhost:3000/articles/${id}`, {
-            method: "PUT",
+        const method = articleId ? "PATCH" : "POST";
+        const url = articleId ? `${API_URL}/${articleId}` : API_URL;
+
+        fetch(url, {
+            method: method,
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updatedArticle)
+            body: JSON.stringify(newArticle)
         })
-        .then(() => window.location.href = "dashboard.html")
-        .catch(error => console.error("Error updating article:", error));
+            .then(() => {
+                window.location.href = "dashboard.html"; // Yönetim paneline geri dön
+            })
+            .catch(error => console.error("Yazı kaydedilirken hata:", error));
     });
 });

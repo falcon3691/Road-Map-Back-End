@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yazıyı Düzenle</title>
-    <script defer src="../script/edit.js"></script>
+    <title>Blog Düzenle</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <h1>Yazıyı Düzenle</h1>
-    <form id="edit-form">
-        <input type="text" id="title" required>
+    <h1 id="page-title">Yeni Yazı Ekle</h1>
+
+    <form id="blog-form">
+        <input type="hidden" id="article-id">
+        <input type="text" id="title" placeholder="Başlık" required>
         <input type="date" id="createdAt" required>
-        <textarea id="content" required></textarea>
-        <button type="submit">Güncelle</button>
+        <textarea id="content" placeholder="İçerik" required></textarea>
+        <button type="submit">Kaydet</button>
     </form>
+
+    <script src="../script/nav.js"></script>
+    <script src="../script/edit.js"></script>
 </body>
 </html>
