@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Paneli</title>
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* CSS ile alt alta düzgün görünmesini sağla */
+        .article-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .article-item h3 {
+            margin: 0;
+        }
+        .article-item p {
+            margin: 5px 0 0;
+            color: gray;
+        }
+    </style>
 </head>
 <body>
 
@@ -12,8 +27,8 @@
         <h1>Admin Paneli</h1>
         <button onclick="window.location.href='edit.html'">Yeni Yazı Ekle</button>
 
-        <h2>Mevcut Yazılar</h2>
-        <ul id="articles-list"></ul>
+        <h2>Son Blog Yazıları</h2>
+        <div id="article-list"></div> <!-- Burada listelenecek -->
     </div>
 
     <script src="../script/nav.js"></script>

@@ -1,32 +1,41 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const articlesList = document.getElementById("articles-list");
-    const API_URL = "http://localhost:3000/articles";
+/*const articleList = document.getElementById("article-list");
+articleList.innerHTML = ""; // Önce listeyi temizle
+fetch("../blogs/articles.json")
+    .then(response => response.json())
+    .then(value => value.articles.forEach(article => {
+        const articleElement = document.createElement("div");
+        articleElement.classList.add("article-item"); // CSS için sınıf ekleyebilirsin
 
-    function loadArticles() {
-        fetch(API_URL)
-            .then(response => response.json())
-            .then(data => {
-                articlesList.innerHTML = "";
-                data.forEach(article => {
-                    const listItem = document.createElement("li");
-                    listItem.innerHTML = `
-                        <strong>${article.title}</strong> - ${article.createdAt}
-                        <button onclick="window.location.href='edit.html?id=${article.id}'">Düzenle</button>
-                        <button onclick="deleteArticle('${article.id}')">Sil</button>
-                    `;
-                    articlesList.appendChild(listItem);
-                });
-            })
-            .catch(error => console.error("Yazılar yüklenirken hata oluştu:", error));
-    }
+        // Blog başlığı ve tarihi içeren HTML bloğu
+        articleElement.innerHTML = `
+            <a href="blog.html?id=${article.id}">
+                <h3>${article.title}</h3>
+            </a>
+            <p><small>${article.createdAt}</small></p>
+            <a href="edit.html?id=${article.id}">EDIT</a>
+            <a href="blog.html?id=${article.id}">DELETE</a>
+        `;
+        articleList.appendChild(articleElement);
+    }));*/
 
-    window.deleteArticle = function (id) {
-        if (confirm("Bu yazıyı silmek istediğinizden emin misiniz?")) {
-            fetch(`${API_URL}/${id}`, { method: "DELETE" })
-                .then(() => loadArticles())
-                .catch(error => console.error("Yazı silinirken hata:", error));
-        }
-    };
+import { writeFileSync } from 'fs';
 
-    loadArticles();
-});
+// Read the JSON file
+import jsonDataBefore from './data.json';
+
+// Print JSON data before updating
+console.log('Before updating JSON:');
+console.log(JSON.stringify(jsonDataBefore, null, 2));
+
+// Update the data
+jsonDataBefore[0].programmingLanguage.push("JavaScript");
+jsonDataBefore[1].programmingLanguage.push("JavaScript");
+
+// Write the updated data back to the JSON file
+writeFileSync('./data.json', JSON.stringify(jsonDataBefore, null, 2));
+
+// Print JSON data after updating
+console.log('\nAfter updating JSON:');
+console.log(JSON.stringify(jsonDataBefore));
+
+console.log('\nData updated successfully.');

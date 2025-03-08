@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const API_URL = "http://localhost:3000/articles";
     const urlParams = new URLSearchParams(window.location.search);
     const articleId = urlParams.get("id");
-
     const titleInput = document.getElementById("title");
     const dateInput = document.getElementById("createdAt");
     const contentInput = document.getElementById("content");
@@ -10,19 +9,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const blogForm = document.getElementById("blog-form");
     const pageTitle = document.getElementById("page-title");
 
-    if (articleId) {
-        // Sayfa "Düzenleme" için açıldıysa
-        pageTitle.textContent = "Yazıyı Düzenle";
-        fetch(`${API_URL}/${articleId}`)
-            .then(response => response.json())
-            .then(article => {
-                titleInput.value = article.title;
-                dateInput.value = article.createdAt;
-                contentInput.value = article.content;
-                articleIdInput.value = article.id;
-            })
-            .catch(error => console.error("Yazı yüklenirken hata:", error));
-    }
+    fetch("../blogs/articles.json")
+    .then(response => response.json())
+    .then(value => {
+        if (value.articles && Array.isArray(value.articles)) {
+            const foundArticle = value.articles.find(article => article.id === articleId);
+            
+            if (foundArticle) {
+                pageTitle.textContent = "Yazıyı Düzenle";
+                titleInput.value = foundArticle.title;
+                dateInput.value = foundArticle.createdAt;
+                contentInput.value = foundArticle.content;
+                articleIdInput.value = foundArticle.id;
+            }
+        } else {
+            console.log("Beklenen JSON formatı farklı olabilir.");
+        }
+    })
+    .catch(error => console.error("Hata:", error));
+
 
     blogForm.addEventListener("submit", function (event) {
         event.preventDefault();

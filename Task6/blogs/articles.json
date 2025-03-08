@@ -1,16 +1,10 @@
 {
   "articles": [
     {
-      "title": "Second Blog Post",
+      "title": "Güncellenmiş Başlık",
       "createdAt": "2025-03-02",
-      "content": "This is the second blog post content.",
+      "content": "Yeni içerik eklendi!",
       "id": "2e74"
-    },
-    {
-      "title": "Third Blog Post",
-      "createdAt": "2025-03-03",
-      "content": "This is the third blog post content.",
-      "id": "0e8f"
     },
     {
       "id": "d007",
@@ -35,6 +29,12 @@
       "title": "Deneme 1",
       "createdAt": "2025-03-29",
       "content": "Deneme 1"
+    },
+    {
+      "id": "abcd",
+      "title": "Yeni Blog Post",
+      "createdAt": "2025-03-10",
+      "content": "Bu yeni bir blog yazısıdır."
     }
   ]
 }
