@@ -15,12 +15,14 @@ def getWeather(city):
     weatherData = getData(apiUrl)
     if weatherData:
         setCacheData(key, weatherData)
-    
+
     return weatherData
 
 city = input("Please enter the city name: ")
 output(getWeather(city))
 
+# If you want to write the wheather data to a JSON file, run the code below.
+#writeData(getWeather(city), city + ".json")
 
 #Tüm Türkiye illerini Redis içerisine kayıt etmek için aşağıdaki kodu çalışıtır.
 """

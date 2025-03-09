@@ -11,10 +11,7 @@ def getData(apiUrl):
                f"Error: {e}")
         return None
     
-def writeData(apiUrl):
-    response = requests.get(apiUrl)
-    if response.status_code == 200:
-        json_data = response.json()
-    with open("veri.json","w", encoding="utf-8") as file:
+def writeData(json_data, fileName):
+    with open(fileName,"w", encoding="utf-8") as file:
         json.dump(json_data, file, indent=4, ensure_ascii= False)
     
